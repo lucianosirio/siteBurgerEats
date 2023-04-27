@@ -7,6 +7,12 @@ const codpostalentregador = faker.address.zipCode('01037010')
 const complemento1 = '999'
 const complemento2 = 'BL 9999'
 
+const entregador = {
+    metodoEntrega: 'Moto',
+    cnh: 'modelocnh.jpg'
+}
+
+const el = require('../support/Elementos').ELEMENTS
 
 class Dados {
 
@@ -22,7 +28,10 @@ class Dados {
             .type(whatsappentregador)
         cy.get('input[name="postalcode"]')
             .type(codpostalentregador)
-        }
+        cnh: 'modelocnh.jpg'
+
+      
+    }
 
     complemento(){
 
@@ -31,7 +40,24 @@ class Dados {
         cy.get('input[name="address-details"]')
             .type(complemento2)
     }
+
+    arquivo(){
+
+        cy.get('input[accept^="image"]')
+            .should('be.exist')
+        cy.get('input[accept^="image"]').attachFile(entregador.cnh)
+    }
+
+    entrega(){
+
+        cy.contains('.delivery-method li', entregador.metodoEntrega)
+            .click()
+    }
+
+
 }
+
+
 
 
 

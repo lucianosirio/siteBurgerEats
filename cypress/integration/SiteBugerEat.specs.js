@@ -1,21 +1,24 @@
 /// <reference types = "cypress"/>
 
 
-import Dados from '../support/bugerDev'
+import Dados from '../support/bugerDev';
+
 
 describe ('SiteBugerEats', () => {
 
     //CENÁRIOS BASEADOS NA TÉCNICA BDD GERALMENTE CRIADO EM OUTRAS FERRAMENTAS PARA SER COMPARTILHADO ENTRE A EQUIPE
 
-    it('Página principal on-line', () => {
     /* Cenário 001 - A home page deve estar On-line
             Dado quando estiver na home page deverá conter a chamada sobre o serviço, 
             quando ser acessado a Url 
             então exibir o botão "Cadastre para fazer entregas"*/
 
+    it('Página principal on-line', () => {
+    
         cy.visit('/')  //Url configurada no arquivo cypress.json
         cy.get('#page-home main h1')
             .should('have.text','Seja um parceiro entregador pela Buger Eats')
+
     })
 
 
@@ -25,9 +28,11 @@ describe ('SiteBugerEats', () => {
             então clicar no botão */
 
     it('Botão de Cadastro', () => {
+
         cy.get('a[href="/deliver"]')
             .should('be.visible')
-            .click()        
+            .click()  
+
     })
 
     
@@ -37,10 +42,12 @@ describe ('SiteBugerEats', () => {
         então deverá aparecer a página com título "Cadastre-se para fazer entregas" */
         
     it('Cadastro do Entregador', () => {
+
         cy.get('#page-deliver form h1') //Check Point
             .should('have.text','Cadastre-se para  fazer entregas')
             /* bug identificado -- um espaço a mais entre as palavras "para" e "fazer".
                Abrir demanda para correção*/        
+  
     })
 
 
@@ -53,6 +60,7 @@ describe ('SiteBugerEats', () => {
         Dados.escrevaNoCampo()
 
     })
+
 
     /* Cenário 005 - Verificar funcionalidade do botão "Buscar Cep"
         Dado ter preenchido os campos
@@ -67,6 +75,7 @@ describe ('SiteBugerEats', () => {
 
     })
 
+
     /* Cenário 006 - Inserir Complemento
         Dado que os campos de endereço foram preenchidos
         quando clicado no botão "Buscar Cep
@@ -75,16 +84,41 @@ describe ('SiteBugerEats', () => {
     it('Preencher Complemento', () => {
 
         Dados.complemento()
+
     })
 
-    /* Cenário 007 - Botão "Cadastra-se para fazer entregas"
+
+     /* Cenário 007 - Metodo de Entrega
         Dado que todos campos foram preenchidos
+        quando decidido modo de entrega
+        então selecionar a opção desejada*/
+    it('Metodo de Entrega', () => {
+
+            Dados.entrega()
+            
+    })
+
+
+    /* Cenário 008 - Upload de Arquivo
+        Dado que todos campos foram preenchidos
+        quando possuir o arquivo em jpg
+        então Clicar na imagem para realizar o upload do arquivo*/
+    it('Upload de arquivo', () => {
+
+        Dados.arquivo()
+        
+    })
+
+
+    /* Cenário 009 - Botão "Cadastra-se para fazer entregas"
+       
         quando necessário para continuação
         então clicar no botão "Cadastre-se para fazer entregas"*/
     it('Botão "Cadastra-se para fazer entrega"', () => {
 
         cy.get('button[class="button-success"]')
-            .should('be.visible') 
+            .should('be.visible')
+            .click() 
     })
  })
 
